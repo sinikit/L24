@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Visits</title>
+	<title>visits</title>
 </head>
 <body>
-<h2>Записаться на приём</h2>
-
-<form action="/Visits" method="POST">
-
+<p> <%= @welcomecustomer %></p>
+<p>Записаться на приём</p>
+<form action="/visits" method="POST">
   <div class="form-group">
     <label>Ваше имя</label>
     <input type="text" name="username" class="form-control" placeholder="Введите ваше имя">
@@ -20,11 +19,10 @@
 
   <div class="form-group">
     <label>Время записи</label>
-    <input type="text" name="time" class="form-control" placeholder="Введите время записи">
+    <input type="text" name="datatime" class="form-control" placeholder="Введите время записи">
   </div>
  
   <button type="submit" class="btn btn-primary">Записаться</button>
-
 </form>
 </body>
 </html>
