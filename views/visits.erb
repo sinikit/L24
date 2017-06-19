@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>visits</title>
-      
+  <title>visits</title>
 </head>
 <body>
+
+<script>
+$(function(){
+  $('#color').simplecolorpicker();
+
+  //Тут можно пистаь любой javascript код который исполняется после загрузки страницы
+})
+</script>
+
 <p> <%= @welcomecustomer %></p>
 <p>Записаться на приём</p>
 <form action="/visits" method="POST">
@@ -37,7 +45,7 @@
 
 <div>
 <label >Выбирите краску: </label>
-<select name="color">
+<select name="color" id="color">
   <option value="#7bd148">Green</option>
   <option value="#5484ed">Bold blue</option>
   <option value="#a4bdfc">Blue</option>
@@ -60,9 +68,7 @@
   <button type="submit" class="btn btn-primary">Записаться</button>
 </form>
 
-<script>
-  $('select[name="color"]').simplecolorpicker();
-</script>
+
 
 
 </body>
