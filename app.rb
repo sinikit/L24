@@ -8,6 +8,7 @@ get '/' do
 end
 
 get '/about' do
+	@error ='Something Wrong'
 	erb :about
 end
 get '/visits' do
