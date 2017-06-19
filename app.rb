@@ -19,8 +19,9 @@ post '/visits' do
 	@phonenumber = params[:phonenumber]
 	@datatime = params[:datatime]
 	@specialist = params[:spec]
-	tofile "#{@customername} will come at #{@datatime}. #{@specialist} can contact him by #{@phonenumber}. \n" , "visitors_list"
-	@welcomecustomer = "Dear  #{@customername}, #{@specialist} will happy to see you at #{@datatime}"
+	@color = params[:color]
+	tofile "#{@customername} will come at #{@datatime}. #{@specialist} can contact him by #{@phonenumber}. Print in #{@color} \n" , "visitors_list"
+	@welcomecustomer = "Dear  #{@customername}, #{@specialist} will happy to see you at #{@datatime}, and print in #{@color}"
 	erb :visits 
 end
 
