@@ -18,22 +18,22 @@ $(function(){
 <form action="/visits" method="POST">
   <div class="form-group">
     <label>Ваше имя</label>
-    <input type="text" name="username" class="form-control" placeholder="Введите ваше имя">
+    <input type="text" name="username" class="form-control" placeholder="Введите ваше имя" value=<%= @customername %> >
   </div>
 
   <div class="form-group">
     <label>Номер телефона</label>
-    <input type="text" name="phonenumber" class="form-control" placeholder="Введите ваш номер телефона">
+    <input type="text" name="phonenumber" class="form-control" placeholder="Введите ваш номер телефона" value=<%= @phonenumber %>>
   </div>
 
   <div class="form-group">
     <label>Время записи</label>
-    <input type="text" name="datatime" class="form-control" placeholder="Введите время записи">
+    <input type="text" name="datatime" class="form-control" placeholder="Введите время записи" value=<%= @datatime%>>
   </div>
 
 <div>
 <label >Выбирите специалиста: </label>
-<select class="form-control" name="spec">
+<select class="form-control" name="spec" value=<%= @specialist%>>
   <option>Jessie Pinkman</option>
   <option>Walter White</option>
   <option>Gus Fring</option>
@@ -45,7 +45,7 @@ $(function(){
 
 <div>
 <label >Выбирите краску: </label>
-<select name="color" id="color">
+<select name="color" id="color" value=<%= @color%>>
   <option value="#7bd148">Green</option>
   <option value="#5484ed">Bold blue</option>
   <option value="#a4bdfc">Blue</option>
