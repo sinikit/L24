@@ -27,16 +27,14 @@ post '/visits' do
 		phonenumber: 'Type yor phonenumber',
 		datatime: 'Type yor datatime'}
 	
-	hh.each do |key,value|
-		if params[key]=='' 
-			@error=hh[key]
-            return erb :visits
-		end
-	end
-
-		tofile "#{@customername} will come at #{@datatime}. #{@specialist} can contact him by #{@phonenumber}. Print in #{@color} \n" , "visitors_list"
-		@welcomecustomer = "Dear  #{@customername}, #{@specialist} will happy to see you at #{@datatime}, and print in #{@color}"
-		erb :visits 
+		@error = is_the_params_empty hh, params
+			if @error == ''	
+				tofile "#{@customername} will come at #{@datatime}. #{@specialist} can contact him by #{@phonenumber}. Print in #{@color} \n" , "visitors_list"
+				@welcomecustomer = "Dear  #{@customername}, #{@specialist} will happy to see you at #{@datatime}, and print in #{@color}"
+				erb :visits 
+			else
+				erb :visits
+			end
 end
 
 get '/contacts' do
@@ -44,8 +42,13 @@ get '/contacts' do
 end
 
 post '/contacts' do
-	@post = "\n"+params[:email] + "\n ========================= \n" + params[:message] + "\n ========================= \n " 
-		tofile @post , "contacts"
+	@email=params[:email]
+	@message=params[:message]
+
+	hh={
+		email: 'Type your email',
+		message: 'Type your message'
+	}
 	erb :contacts
 end
 
@@ -54,4 +57,14 @@ def tofile userdata ,  file_name
 	f=File.open("./public/#{file_name}.txt", "a")
 	f.print userdata
 	f.close
+end
+
+def is_the_params_empty hh, params
+	result=''
+	hh.each do |key, value|
+		if params[key]==''
+			result<<hh[key]<<' '
+		end		
+	end
+	return result
 end
