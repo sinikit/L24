@@ -30,7 +30,7 @@ post '/visits' do
 	hh.each do |key,value|
 		if params[key]=='' 
 			@error=hh[key]
-			return erb :visits
+            return erb :visits
 		end
 	end
 
