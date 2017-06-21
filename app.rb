@@ -8,9 +8,9 @@ get '/' do
 end
 
 get '/about' do
-	@error ='Something Wrong'
 	erb :about
 end
+
 get '/visits' do
 	erb :visits
 end
@@ -21,9 +21,22 @@ post '/visits' do
 	@datatime = params[:datatime]
 	@specialist = params[:spec]
 	@color = params[:color]
-	tofile "#{@customername} will come at #{@datatime}. #{@specialist} can contact him by #{@phonenumber}. Print in #{@color} \n" , "visitors_list"
-	@welcomecustomer = "Dear  #{@customername}, #{@specialist} will happy to see you at #{@datatime}, and print in #{@color}"
-	erb :visits 
+
+	hh={
+		username:'Type yor name',
+		phonenumber: 'Type yor phonenumber',
+		datatime: 'Type yor datatime'}
+	
+	hh.each do |key,value|
+		if params[key]=='' 
+			@error=hh[key]
+			return erb :visits
+		end
+	end
+
+		tofile "#{@customername} will come at #{@datatime}. #{@specialist} can contact him by #{@phonenumber}. Print in #{@color} \n" , "visitors_list"
+		@welcomecustomer = "Dear  #{@customername}, #{@specialist} will happy to see you at #{@datatime}, and print in #{@color}"
+		erb :visits 
 end
 
 get '/contacts' do
