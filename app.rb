@@ -44,11 +44,31 @@ end
 post '/contacts' do
 	@email=params[:email]
 	@message=params[:message]
+	@customername=params[:username]
 
 	hh={
+		username: 'Type your name'	,
 		email: 'Type your email',
 		message: 'Type your message'
 	}
+	
+	@error = is_the_params_empty hh,params
+			if @error == ''	
+				@welcomecustomer = "Thank you Dear #{@customername} fore mail us!"
+				configure_pony
+
+				 Pony.mail(
+			      :from => "#{@email}",
+			      :to => 'sinikit@yahoo.com',
+			      :subject =>"#{@customername} has contacted you",
+			      :body => "#{@message}",
+			     )
+
+				else
+				erb :visits
+			end
+
+
 	erb :contacts
 end
 
@@ -67,4 +87,20 @@ def is_the_params_empty hh, params
 		end		
 	end
 	return result
+end
+
+def configure_pony
+  
+  Pony.options = {
+    via: :smtp,
+    via_options: { 
+      address:   			'smtp.sendgrid.net', 
+      port:      			'587',  
+      user_name:  			ENV['SENDGRID_USERNAME'], 
+      password:   			ENV['SENDGRID_PASSWORD'], 
+      authentication: 		:plain, 
+      enable_starttls_auto: true,
+      domain:       		'local.domain'
+    }    
+  }
 end
