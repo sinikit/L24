@@ -1,6 +1,7 @@
 #encoding: utf-8
 require 'rubygems'
 require 'sinatra'
+require 'pony'
 require 'sinatra/reloader'
 
 get '/' do
@@ -21,7 +22,6 @@ post '/visits' do
 	@datatime = params[:datatime]
 	@specialist = params[:spec]
 	@color = params[:color]
-
 	hh={
 		username:'Type yor name',
 		phonenumber: 'Type yor phonenumber',
@@ -51,17 +51,15 @@ post '/contacts' do
 		email: 'Type your email',
 		message: 'Type your message'
 	}
-	
 	@error = is_the_params_empty hh,params
 			if @error == ''	
 				@welcomecustomer = "Thank you Dear #{@customername} fore mail us!"
-				configure_pony
 
 				 Pony.mail(
-			      :from => "#{@email}",
-			      :to => 'sinikit@yahoo.com',
-			      :subject =>"#{@customername} has contacted you",
-			      :body => "#{@message}",
+			      to: 'sinikit@yahoo.com',
+			      #from: @message ,
+			      #subject: "#{@customername} has contacted you",
+			      body: @message
 			     )
 
 				else
@@ -89,18 +87,3 @@ def is_the_params_empty hh, params
 	return result
 end
 
-def configure_pony
-  
-  Pony.options = {
-    via: :smtp,
-    via_options: { 
-      address:   			'smtp.sendgrid.net', 
-      port:      			'587',  
-      user_name:  			ENV['SENDGRID_USERNAME'], 
-      password:   			ENV['SENDGRID_PASSWORD'], 
-      authentication: 		:plain, 
-      enable_starttls_auto: true,
-      domain:       		'local.domain'
-    }    
-  }
-end
